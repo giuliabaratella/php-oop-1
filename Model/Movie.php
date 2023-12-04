@@ -8,7 +8,7 @@ class Movie
     public string $overview;
     public float $vote_average;
     public string $poster_path;
-    public Genre $genre;
+    public string $genre;
 
     // funzione costruttore che passa i valori all'istanza
     function __construct($id, $title, $overview, $vote, $image, $genre)
@@ -29,7 +29,7 @@ class Movie
         $overview = substr($this->overview, 0, 150);
         $vote = $this->voteStars();
         $image = $this->poster_path;
-        $genre = $this->genre->name;
+        $genre = $this->genre;
         include __DIR__ . "/../Views/card.php";
 
     }
@@ -43,19 +43,20 @@ class Movie
         $template .= "</p>";
         return $template;
     }
+
 }
+
 
 // prendo i dati dal file json 
 $movieString = file_get_contents(__DIR__ . '/movie_db.json');
 $movieList = json_decode($movieString, true);
-// var_dump($movieList);
 
-// creo array vuoto in cui inserire le istanze come oggetti e lo popolo con un ciclo
-// $rndGenre = ;
+
 $movies = [];
 foreach ($movieList as $item) {
-    $rndGenre = $genres[rand(0, count($genres) - 1)];
-    $movies[] = new Movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path'], $rndGenre);
+    $genre = getGenres($genres);
+    // $rndGenre = ($genres[rand(0, count($genres) - 1)]);
+    $movies[] = new Movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path'], $genre);
 }
 // stampo l'array $movies 
 // var_dump($movies);
