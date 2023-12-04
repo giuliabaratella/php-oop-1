@@ -18,6 +18,18 @@ class movie
         $this->vote_average = $vote;
         $this->poster_path = $image;
     }
+
+    // funzione per creare una card e associarle i valori 
+    // inclusione della "prop" card.php 
+    public function printCard()
+    {
+        $title = $this->title;
+        $overview = $this->overview;
+        $vote = $this->vote_average;
+        $image = $this->poster_path;
+        include __DIR__ . "/../Views/card.php";
+
+    }
 }
 
 // prendo i dati dal file json 
@@ -31,7 +43,7 @@ foreach ($movieList as $item) {
     $movies[] = new movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path']);
 }
 // stampo l'array $movies 
-var_dump($movies);
+// var_dump($movies);
 
 
 ?>
