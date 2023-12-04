@@ -8,13 +8,17 @@
             <p class="card-text">
                 <?= $overview ?>
             </p>
+            <small>
+                <?= $genre ?>
+            </small>
             <div class="d-flex justify-content-between align-items-flex-start">
                 <small>
                     <?= $vote ?>
                 </small>
-                <small>
-                    <?= $genre ?>
-                </small>
+
+                <div style="width: 40px">
+                    <img src="<?php echo $flag ?>" alt="language" class="w-100">
+                </div>
             </div>
 
         </div>

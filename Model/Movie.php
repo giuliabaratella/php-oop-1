@@ -9,9 +9,11 @@ class Movie
     public float $vote_average;
     public string $poster_path;
     public string $genre;
+    public string $original_language;
+
 
     // funzione costruttore che passa i valori all'istanza
-    function __construct($id, $title, $overview, $vote, $image, $genre)
+    function __construct($id, $title, $overview, $vote, $image, $genre, $language)
     {
         $this->id = $id;
         $this->title = $title;
@@ -19,7 +21,9 @@ class Movie
         $this->vote_average = $vote;
         $this->poster_path = $image;
         $this->genre = $genre;
+        $this->original_language = $language;
     }
+
 
     // funzione per creare una card e associarle i valori 
     // inclusione della "prop" card.php 
@@ -30,6 +34,7 @@ class Movie
         $vote = $this->voteStars();
         $image = $this->poster_path;
         $genre = $this->genre;
+        $flag = $this->getLanguage($this->original_language);
         include __DIR__ . "/../Views/card.php";
 
     }
@@ -43,8 +48,30 @@ class Movie
         $template .= "</p>";
         return $template;
     }
+    public function getLanguage($lan)
+    {
+        $flags = [
+            'ca',
+            'de',
+            'en',
+            'fr',
+            'it',
+            'ja',
+            'kr',
+            'us',
+        ];
+        if (!in_array($lan, $flags)) {
+            $flag = 'img/noflag.png';
+        } else {
+            $flag = "img/" . $lan . ".svg";
+        }
+        return $flag;
+
+    }
+
 
 }
+
 
 
 // prendo i dati dal file json 
@@ -56,7 +83,7 @@ $movies = [];
 foreach ($movieList as $item) {
     $genre = getGenres($genres);
     // $rndGenre = ($genres[rand(0, count($genres) - 1)]);
-    $movies[] = new Movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path'], $genre);
+    $movies[] = new Movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path'], $genre, $item['original_language']);
 }
 // stampo l'array $movies 
 // var_dump($movies);
