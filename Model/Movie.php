@@ -1,7 +1,7 @@
 <?php
 
 // credo una classe movie con le sue variabili di istanza 
-class movie
+class Movie
 {
     public int $id;
     public string $title;
@@ -24,11 +24,21 @@ class movie
     public function printCard()
     {
         $title = $this->title;
-        $overview = $this->overview;
-        $vote = $this->vote_average;
+        $overview = substr($this->overview, 0, 150);
+        $vote = $this->voteStars();
         $image = $this->poster_path;
         include __DIR__ . "/../Views/card.php";
 
+    }
+    public function voteStars()
+    {
+        $vote = ceil($this->vote_average / 2);
+        $template = "<p>";
+        for ($i = 1; $i <= 5; $i++) {
+            $template .= $i <= $vote ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+        }
+        $template .= "</p>";
+        return $template;
     }
 }
 
@@ -40,7 +50,7 @@ $movieList = json_decode($movieString, true);
 // creo array vuoto in cui inserire le istanze come oggetti e lo popolo con un ciclo
 $movies = [];
 foreach ($movieList as $item) {
-    $movies[] = new movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path']);
+    $movies[] = new Movie($item['id'], $item['title'], $item['overview'], $item['vote_average'], $item['poster_path']);
 }
 // stampo l'array $movies 
 // var_dump($movies);
