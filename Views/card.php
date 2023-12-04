@@ -9,10 +9,12 @@
                 <?= $overview ?>
             </p>
             <div class="d-flex justify-content-between align-items-flex-start">
-                Vote:
-                <?= $vote ?>
-                <div>
-                </div>
+                <small>
+                    <?= $vote ?>
+                </small>
+                <small>
+                    <?= $genre ?>
+                </small>
             </div>
 
         </div>
