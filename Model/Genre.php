@@ -7,27 +7,19 @@ class Genre
     {
         $this->name = $name;
     }
-
-}
-function getGenres($array)
-{
-    $numGenres = rand(1, count($array) - 1);
-    $genreList = "";
-    for ($i = 0; $i <= $numGenres; $i++) {
-        $genre = $array[rand(0, count($array) - 1)]->name;
-        if (!str_contains($genreList, $genre)) {
-            $genreList .= $genre . ' ';
+    public static function fetchAll()
+    {
+        $genreString = file_get_contents(__DIR__ . '/genre_db.json');
+        $genreList = json_decode($genreString, true);
+        $genres = [];
+        foreach ($genreList as $item) {
+            $genres[] = new Genre($item);
         }
+        return $genres;
     }
-    return $genreList;
+    // var_dump($genres);
 }
 
-$genreString = file_get_contents(__DIR__ . '/genre_db.json');
-$genreList = json_decode($genreString, true);
-$genres = [];
-foreach ($genreList as $item) {
-    $genres[] = new Genre($item);
-}
-// var_dump($genres);
+
 
 ?>

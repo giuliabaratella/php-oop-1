@@ -8,9 +8,9 @@
             <p class="card-text">
                 <?= $overview ?>
             </p>
-            <small>
-                <?= $genre ?>
-            </small>
+            <div>
+                <?= $genres ?>
+            </div>
             <div class="d-flex justify-content-between align-items-flex-start">
                 <small>
                     <?= $vote ?>
